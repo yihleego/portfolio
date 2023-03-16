@@ -12,21 +12,21 @@
     <script src="scripts/scrollreveal.min.js"></script>
     <script>
         if (localStorage.theme) {
-            document.documentElement.setAttribute("data-theme", localStorage.theme);
+            document.documentElement.setAttribute('data-theme', localStorage.theme);
         }
     </script>
 </head>
 <body>
 <header class="profile container">
-    <!-- Theme button -->
-    <i class="ri-moon-line change-theme" id="theme-button"></i>
+    <div class="profile__theme">
+        <i id="theme-button" class="ri-moon-line change-theme"></i>
+    </div>
 
     <div class="profile__container grid">
         <div class="profile__data">
             <div class="profile__border">
                 <div class="profile__perfil">
-                    <!-- Insert your image, according to the example size of the portfolio -->
-                    <img src="images/avatar.png" alt="">
+                    <img src="images/avatar.png" alt="Hello!">
                 </div>
             </div>
 
@@ -66,7 +66,6 @@
         </div>
 
         <div class="profile__buttons">
-            <!-- Insert your CV -->
             <a download="" href="" class="button">
                 Download CV <i class="ri-download-line"></i>
             </a>
@@ -99,7 +98,6 @@
         <div class="filters__sections">
             <div class="projects__content grid filters__active" data-content id="projects">
                 <article class="projects__card">
-                    <!-- Insert your image in a rectangular format (Ex: 600 x 400, 1000 x 800, 1200 x 1000, etc) -->
                     <img src="images/beijing.svg" alt="" class="projects__img">
 
                     <div class="projects__modal">
@@ -305,9 +303,7 @@
     </section>
 </main>
 <footer class="footer container">
-    <span class="footer__copy">
-        &#169; Leego Yih. All rights reserved
-    </span>
+    <span class="footer__copy">&#169; Leego Yih</span>
 </footer>
 <script>
     /*=============== FILTERS TABS ===============*/
@@ -331,30 +327,26 @@
     })
 
     /*=============== DARK LIGHT THEME ===============*/
-    function setTheme(theme) {
-        console.log('theme', theme)
-        if (!theme) {
-            let hours = new Date().getHours();
-            theme = hours >= 18 || hours <= 5 ? 'dark' : 'light'
-        }
-        document.documentElement.setAttribute("data-theme", theme);
-        if (theme === 'dark') {
-            document.getElementById('theme-button').classList.add('ri-sun-line');
-        } else {
-            document.getElementById('theme-button').classList.remove('ri-sun-line');
-        }
-    }
-
-    setTheme(localStorage.theme)
-
     const themeButton = document.getElementById('theme-button')
 
-    // Activate / deactivate the theme manually with the button
     themeButton.addEventListener('click', () => {
         const theme = localStorage.theme === 'dark' ? 'light' : 'dark'
         setTheme(theme)
         localStorage.theme = theme;
     })
+
+    function setTheme(theme) {
+        if (!theme) {
+            let hours = new Date().getHours();
+            theme = hours >= 18 || hours <= 5 ? 'dark' : 'light'
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+            themeButton.classList.add('ri-sun-line');
+        } else {
+            themeButton.classList.remove('ri-sun-line');
+        }
+    }
 
     /*=============== SCROLL REVEAL ANIMATION ===============*/
     const sr = ScrollReveal({
@@ -364,14 +356,19 @@
         delay: 400,
     })
 
-    sr.reveal(`.profile__border`)
-    sr.reveal(`.profile__name`, {delay: 500})
-    sr.reveal(`.profile__profession`, {delay: 600})
-    sr.reveal(`.profile__social`, {delay: 700})
-    sr.reveal(`.profile__info-group`, {interval: 100, delay: 700})
-    sr.reveal(`.profile__buttons`, {delay: 800})
-    sr.reveal(`.filters__content`, {delay: 900})
-    sr.reveal(`.filters`, {delay: 1000})
+    sr.reveal('.profile__theme', {distance: '0px'})
+    sr.reveal('.profile__border')
+    sr.reveal('.profile__name', {delay: 500})
+    sr.reveal('.profile__profession', {delay: 600})
+    sr.reveal('.profile__social', {delay: 700})
+    sr.reveal('.profile__info-group', {interval: 100, delay: 700})
+    sr.reveal('.profile__buttons', {delay: 800})
+    sr.reveal('.filters__content', {delay: 900})
+    sr.reveal('.filters', {delay: 1000})
+
+    window.onload = function () {
+        setTheme(localStorage.theme)
+    }
 </script>
 </body>
 </html>
