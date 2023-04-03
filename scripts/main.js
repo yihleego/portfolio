@@ -46,6 +46,9 @@ const sr = ScrollReveal({
     distance: '60px',
     duration: 2500,
     delay: 400,
+    beforeReveal: function (el) {
+        el.style.opacity = 1
+    }
 })
 
 sr.reveal('.profile__theme', {distance: '0px'})
